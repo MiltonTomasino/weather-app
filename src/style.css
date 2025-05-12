@@ -1,0 +1,70 @@
+:root {
+    --font-size: 16px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    line-height: 1.5;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+
+}
+
+.search-container {
+    width: 100%;
+    justify-items: center;
+}
+
+.search-container > form {
+    outline: 1px solid blue;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40%;
+
+    gap: 10px;
+}
+
+form > input {
+    width: 50%;
+    height: 30px;
+    font-size: 16px;
+    padding: 5px;
+}
+
+.svg-icon {
+    width: 30px;
+}
+
+.container {
+    outline: 2px solid red;
+    width: 70%;
+    height: 80%;
+
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 5px;
+    padding: 10px;
+}
+
+.main {
+    outline: 2px solid green;
+}
+
+.main-info {
+    outline: 2px solid orange;
+}
+
+.days {
+    outline: 2px solid blue;
+}
+
