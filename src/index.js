@@ -6,6 +6,7 @@ const url = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/s
 let city;
 
 const WeatherApi = (() => {
+    const baseUrl = "https://raw.githubusercontent.com/visualcrossing/WeatherIcons/refs/heads/main/SVG/4th%20Set%20-%20Color/"
     let cityData;
 
     async function fetchCityData(city = null) {
@@ -31,11 +32,16 @@ const WeatherApi = (() => {
         return cityData;
     }
 
+    function fetchIcon(city) {
+        return baseUrl + city.currentConditions.icon + ".svg";
+    }
+
     return {
         fetchCityData,
         fetchCurrentTemp,
         fetchCityDays,
-        fetchCity
+        fetchCity,
+        fetchIcon
     }
 })();
 
@@ -43,6 +49,8 @@ const WeatherApi = (() => {
 const DisplayInfo = (() => {
     let searchBtn = document.querySelector("#search-btn");
     let locationDiv = document.querySelector(".location");
+    let main = document.querySelector(".main");
+    let mainInfo = document.querySelector(".main-info");
 
     searchBtn.addEventListener("click", async (e) => {
         e.preventDefault();
@@ -51,7 +59,10 @@ const DisplayInfo = (() => {
         let formattedSearch = formatSearch(search.value);
         await WeatherApi.fetchCityData(formattedSearch);
         search.value = "";
-        displayLocation();
+        let city = WeatherApi.fetchCity();
+
+        displayLocation(city);
+        displayMainInfo(city);
     })
 
     function formatSearch(term) {
@@ -64,12 +75,35 @@ const DisplayInfo = (() => {
         return res;
     }
 
-    async function displayLocation() {
+    function displayLocation(city) {
         let locationH1 = document.createElement("h1");
-        let cityLocation = WeatherApi.fetchCity();
 
-        locationH1.textContent = cityLocation.resolvedAddress;
+        locationH1.textContent = city.resolvedAddress;
         locationDiv.appendChild(locationH1);
+    }
+
+    function displayMainInfo(city) {
+        main.innerHTML= "";
+        let icon = WeatherApi.fetchIcon(city);
+
+        let image = document.createElement("img");
+        image.src = icon;
+
+        let temp = document.createElement("h1");
+        temp.textContent = `${city.currentConditions.temp} \u00B0 F`;
+
+        let conditions = document.createElement("p");
+        conditions.textContent = city.currentConditions.conditions;
+
+        main.appendChild(temp);
+        main.appendChild(image);
+        main.appendChild(conditions);
+    }
+
+    function displayAdditionMainInfo(city) {
+        mainInfo.innerHTML = "";
+
+        
     }
 
 })();

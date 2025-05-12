@@ -52,19 +52,42 @@ form > input {
 
     display: grid;
     grid-template-columns: 1fr 2fr;
+    grid-template-rows: 1fr 1fr;
     gap: 5px;
     padding: 10px;
 }
+
+/*MAIN*/
 
 .main {
     outline: 2px solid green;
 }
 
+.main {
+    padding-left: 20px;
+}
+
+.main > h1 {
+    font-size: 70px;
+}
+
+.main > p {
+    font-size: 25px;
+}
+
+.main > img {
+    /* outline: 1px solid purple; */
+    width: 200px;
+}
+
+/*MAIN INFO*/
 .main-info {
     outline: 2px solid orange;
 }
 
+/*FUTURE DAYS*/
 .days {
     outline: 2px solid blue;
+    grid-column: 1 / 3;
 }
 
