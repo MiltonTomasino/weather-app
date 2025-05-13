@@ -1,5 +1,4 @@
 import "./style.css";
-console.log("hello from index.js!");
 
 const key = "?key=B2H2UQPZ5CHBGDQH52BCFXUPA"
 const url = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/";
@@ -13,7 +12,6 @@ const WeatherApi = (() => {
         try {
             let response = await fetch(url + `/${city}` + key);
             cityData = await response.json();
-            console.log(cityData);
             return true
 
         } catch (error) {
