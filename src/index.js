@@ -36,12 +36,17 @@ const WeatherApi = (() => {
         return baseUrl + city.currentConditions.icon + ".svg";
     }
 
+    function fetchIconFromList(icon) {
+        return baseUrl + icon + ".svg";
+    }
+
     return {
         fetchCityData,
         fetchCurrentTemp,
         fetchCityDays,
         fetchCity,
-        fetchIcon
+        fetchIcon,
+        fetchIconFromList
     }
 })();
 
@@ -51,6 +56,7 @@ const DisplayInfo = (() => {
     let locationDiv = document.querySelector(".location");
     let main = document.querySelector(".main");
     let mainInfo = document.querySelector(".main-info");
+    let days = document.querySelector(".days")
 
     searchBtn.addEventListener("click", async (e) => {
         e.preventDefault();
@@ -107,6 +113,7 @@ const DisplayInfo = (() => {
         mainInfoHumidity(city);
         mainInfoUV(city);
         mainInfoSunsetSunrise(city);
+        nextDayWeather(city);
 
     }
 
@@ -174,6 +181,35 @@ const DisplayInfo = (() => {
 
         setRise.appendChild(header1)
         setRise.appendChild(header2);
+    }
+
+    function nextDayWeather(city) {
+        days.innerHTML = "";
+
+        for (let i = 0; i < city.days.length; i++) {
+            let box = document.createElement("div");
+            box.classList.add("box");
+
+            let icon = WeatherApi.fetchIconFromList(city.days[i].icon);
+
+            let image = document.createElement("img");
+            image.src = icon;
+
+            let temp = document.createElement("h1");
+            temp.textContent = `${city.days[i].temp} \u00B0 F`;
+
+            let dateTime = document.createElement("h2");
+            let date = city.days[i].datetime.split("-");
+            let formattedDate = `${date[1]}/${date[2]}/${date[0]}`;
+            dateTime.textContent = formattedDate;
+
+            box.appendChild(temp);
+            box.appendChild(image);
+            box.appendChild(dateTime);
+
+            days.appendChild(box);
+        }
+
     }
 
 })();
