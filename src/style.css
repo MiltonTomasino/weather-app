@@ -83,6 +83,17 @@ form > input {
 /*MAIN INFO*/
 .main-info {
     outline: 2px solid orange;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 10px;
+}
+
+.main-info > div {
+    outline: 2px solid red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 /*FUTURE DAYS*/

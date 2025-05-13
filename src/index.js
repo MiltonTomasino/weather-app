@@ -63,6 +63,7 @@ const DisplayInfo = (() => {
 
         displayLocation(city);
         displayMainInfo(city);
+        displayAdditionMainInfo(city);
     })
 
     function formatSearch(term) {
@@ -101,9 +102,78 @@ const DisplayInfo = (() => {
     }
 
     function displayAdditionMainInfo(city) {
-        mainInfo.innerHTML = "";
 
-        
+        mainInfoFeels(city);
+        mainInfoHumidity(city);
+        mainInfoUV(city);
+        mainInfoSunsetSunrise(city);
+
+    }
+
+    function mainInfoFeels(city) {
+        let feels = document.querySelector(".feels");
+        feels.innerHTML = "";
+
+        let header2 = document.createElement("h2");
+        header2.textContent = "Feels like " + city.currentConditions.feelslike + "\u00B0F";
+
+        feels.appendChild(header2);
+    }
+
+    function mainInfoHumidity(city) {
+        let humidity = document.querySelector(".humidity");
+        humidity.innerHTML = "";
+
+        let header2 = document.createElement("h2");
+        header2.textContent = "Humidity: " + city.currentConditions.humidity + "%";
+
+        humidity.appendChild(header2);
+    }
+
+    function mainInfoUV(city) {
+        let uv = document.querySelector(".uv-info");
+        uv.innerHTML = "";
+
+        let headerText = document.createElement("h2");
+        headerText.textContent = "UV Index";
+
+        let index = document.createElement("h1");
+        index.textContent = city.currentConditions.uvindex;
+
+        let desc = document.createElement("p");
+        desc.textContent = checkUVIndex(city.currentConditions.uvindex);
+
+        uv.appendChild(headerText);
+        uv.appendChild(index);
+        uv.appendChild(desc);
+    }
+
+    function checkUVIndex(uv) {
+        if (uv > 0 && uv < 3) {
+            return "Low";
+        } else if (uv >= 3 && uv < 7) {
+            return "Moderate";
+        } else if (uv >= 7 && uv < 9) {
+            return "High";
+        } else if (uv >= 9 && uv < 11) {
+            return "Very High";
+        } else {
+            return "Extreme";
+        }
+    }
+
+    function mainInfoSunsetSunrise(city) {
+        let setRise = document.querySelector(".sunset-sunrise");
+        setRise.innerHTML = "";
+
+        let header1 = document.createElement("h2");
+        let header2 = document.createElement("h2");
+
+        header1.textContent = "Sunrise: " + city.currentConditions.sunrise;
+        header2.textContent = "Sunset: " + city.currentConditions.sunset;
+
+        setRise.appendChild(header1)
+        setRise.appendChild(header2);
     }
 
 })();
