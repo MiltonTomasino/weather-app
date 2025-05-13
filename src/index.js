@@ -114,6 +114,8 @@ const DisplayInfo = (() => {
         mainInfoUV(city);
         mainInfoSunsetSunrise(city);
         nextDayWeather(city);
+        mainInfoLatLong(city);
+        mainInfoTimezone(city);
 
     }
 
@@ -181,6 +183,34 @@ const DisplayInfo = (() => {
 
         setRise.appendChild(header1)
         setRise.appendChild(header2);
+    }
+
+    function mainInfoLatLong(city) {
+        let latLong = document.querySelector(".lat-long");
+        latLong.innerHTML = "";
+
+        let header1 = document.createElement("h2");
+        let header2 = document.createElement("h2");
+
+        header1.textContent = `Latitude: ${city.latitude}`;
+        header2.textContent = `Longitude: ${city.longitude}`;
+
+        latLong.appendChild(header1);
+        latLong.appendChild(header2);
+    }
+
+    function mainInfoTimezone(city) {
+        let timezone = document.querySelector(".timezone");
+        timezone.innerHTML = "";
+
+        let header1 = document.createElement("h2");
+        let header2 = document.createElement("h2");
+
+        header1.textContent = "Timezone:";
+        header2.textContent = city.timezone.split("_").join(" ");
+
+        timezone.appendChild(header1);
+        timezone.appendChild(header2);
     }
 
     function nextDayWeather(city) {
