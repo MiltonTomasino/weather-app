@@ -52,10 +52,10 @@ const WeatherApi = (() => {
 
 
 const DisplayInfo = (() => {
+    let container = document.querySelector(".container");
     let searchBtn = document.querySelector("#search-btn");
     let locationDiv = document.querySelector(".location");
     let main = document.querySelector(".main");
-    let mainInfo = document.querySelector(".main-info");
     let days = document.querySelector(".days")
 
     searchBtn.addEventListener("click", async (e) => {
@@ -67,6 +67,7 @@ const DisplayInfo = (() => {
         search.value = "";
         let city = WeatherApi.fetchCity();
 
+        container.classList.add("active")
         displayLocation(city);
         displayMainInfo(city);
         displayAdditionMainInfo(city);
