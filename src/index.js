@@ -14,9 +14,11 @@ const WeatherApi = (() => {
             let response = await fetch(url + `/${city}` + key);
             cityData = await response.json();
             console.log(cityData);
+            return true
 
         } catch (error) {
             console.log(error);
+            return false;
         }
     }
 
@@ -63,7 +65,14 @@ const DisplayInfo = (() => {
         locationDiv.innerHTML = "";
         let search = document.querySelector("#search");
         let formattedSearch = formatSearch(search.value);
-        await WeatherApi.fetchCityData(formattedSearch);
+        let res = await WeatherApi.fetchCityData(formattedSearch);
+
+        if (!res) {
+            DisplayInfo.displayLocationError();
+            container.classList.remove("active");
+            return;
+        }
+
         search.value = "";
         let city = WeatherApi.fetchCity();
 
@@ -81,6 +90,13 @@ const DisplayInfo = (() => {
         }
 
         return res;
+    }
+
+    function displayLocationError() {
+        let location = document.createElement("h1");
+
+        location.textContent = "Invalid Search. Try Again."
+        locationDiv.appendChild(location)
     }
 
     function displayLocation(city) {
@@ -241,6 +257,10 @@ const DisplayInfo = (() => {
             days.appendChild(box);
         }
 
+    }
+
+    return {
+        displayLocationError,
     }
 
 })();
